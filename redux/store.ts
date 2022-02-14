@@ -12,6 +12,4 @@ export type AppStateType = ReturnType<RootReducerType>
 export type InferActionType<T> = T extends {[key : string]: (...arg: any[])=> infer U} ? U : never
 export type BaseThunkType<A extends Action, P = Promise<void>> = ThunkAction<P, AppStateType, unknown, A>
 
-
-
 export default createStore(rootReducer, compose(applyMiddleware(thunkMiddleware)))

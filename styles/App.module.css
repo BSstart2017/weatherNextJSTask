@@ -1,0 +1,104 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+}
+
+@media (max-width: 1504px) {
+    .container {
+        width: 100%;
+        height: 120vh;
+    }
+}
+
+@media (max-width: 1199px) {
+    .container {
+        width: 100%;
+        height: 110vh;
+    }
+}
+@media (max-width: 576px) {
+    .container {
+        width: 100%;
+        height: 120vh;
+    }
+}
+@media (max-width: 375px) {
+    .container {
+        width: 100%;
+        height: 120vh;
+    }
+}
+
+.container .containerLayout {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    background-color: unset;
+}
+
+.container .containerLayout .containerHeader {
+    margin-bottom: 50px;
+    color: black;
+    font-weight: bold;
+}
+
+.containerPositionCenter {
+    text-align: center;
+}
+
+.autoComplete {
+       width: 200px;
+   }
+
+.errorMessage {
+    color: red;
+    margin-left: 10px;
+}
+
+.containerPositionEnd {
+    text-align: end;
+}
+
+.backgroundImages {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.containerTable .divider {
+    color: yellow;
+}
+
+.tableStyle {
+    min-width: 375px;
+}
+
+.containerInfo {
+       text-align: center;
+       border-radius: 50%;
+       color: white;
+       font-weight: bold;
+       background: rgba(161,21,207, 0.3);
+   }
+
+.containerInfo .iconImages {
+    height: 100px;
+    width: 100px;
+}
+
+.containerInfo .contentHeader {
+    font-size: 32px;
+}
+
+.containerInfo .contentHeader p {
+    margin: 5px;
+}
+
+.containerInfo .contentBottom {
+    font-size: 16px;
+    margin: 5px;
+}
+
+.containerInfo .contentBottom p {
+    margin: 5px;
+}

@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from "axios"
 import { v1 as uu1 } from 'uuid'
-import {PositionType} from "../../utils/geo";
+import {PositionType} from "../../utils/geo"
 
 const API_KEY = process.env.NEXT_PUBLIC_WEATHER_BIT_API_KEY
 

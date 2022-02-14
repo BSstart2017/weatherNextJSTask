@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux"
 import React, {FC, useCallback, useEffect, useMemo, useRef, useState} from "react"
 import {AutoComplete, Button, Col, Divider, Layout, Row, Table} from "antd"
 import Image from 'next/image'
-import type { NextPage } from 'next'
+import type {NextPage} from 'next'
 import {
   getHelperCityResult, getImgWeatherBackground, getIsErrorCity,
   getIsLoading,
@@ -19,6 +19,7 @@ import {
 import {getBrowserLocation, PositionType} from "../utils/geo"
 import 'antd/dist/antd.css';
 import {WeatherBitCityDataType} from "./api/WeatherBitApi"
+import styles from "../styles/App.module.css"
 
 const App: NextPage = () => {
 
@@ -48,13 +49,13 @@ const App: NextPage = () => {
 
 
   return (
-      <div>
+      <div className={styles.container}>
         <WeatherBackground/>
         {!isLoading
-            ?  <Layout>
-              <Row align={"middle"}>
+            ?  <Layout className={styles.containerLayout}>
+              <Row className={styles.containerHeader} align={"middle"}>
                 <AutoCompleteGeoHelper/>
-                <Col xl={4} md={0} sm={0} xs={0}>
+                <Col className={styles.containerPositionCenter} xl={4} md={0} sm={0} xs={0}>
                   <span>WEATHER APP</span>
                 </Col>
               </Row>
@@ -73,18 +74,7 @@ const Preloader: FC = () => {
   const imgLoading = `/assets/images/CapsuleLoading.svg`
   return (
       <>
-        <Image width={500} height={500} src={imgLoading} alt="noPhoto"/>
-        <style jsx>
-          {`
-              img {
-               top: 50%;
-               left: 50%;
-               transform: translate(-50%, -50%);
-               width: 20%;
-               position: absolute;
-              }
-            `}
-        </style>
+        <Image layout="fill" src={imgLoading} alt="noPhoto"/>
       </>
   )
 }
@@ -143,15 +133,15 @@ const AutoCompleteGeoHelper: FC = () => {
 
   return (
       <>
-        <Col xl={4} md={8} sm={8} xs={0}>
+        <Col className={styles.containerPositionEnd} xl={4} md={8} sm={8} xs={0}>
           <span>RADAR Geo Helper</span>
         </Col>
-        <Col xl={5} md={8} sm={12} xs={16}>
+        <Col className={styles.containerPositionCenter} xl={5} md={8} sm={12} xs={16}>
           <AutoComplete
               autoFocus={true}
               value={helperCityName}
               onClick={handlerClickAutoComplete}
-              style={{width: 200}}
+              className={styles.autoComplete}
               options={helperCityResult}
               onSelect={handlerSelectCity}
               onSearch={handlerSearchCity}
@@ -159,7 +149,7 @@ const AutoCompleteGeoHelper: FC = () => {
               placeholder="Enter the name of the city"
           />
           {isErrorCity &&
-              <span>No city found!!</span>
+              <span className={styles.errorMessage}>No city found!!</span>
           }
         </Col>
         <Col xl={11} md={4} sm={4} xs={8} >
@@ -182,8 +172,8 @@ const WeatherBackground : FC = () => {
       (imgWeather) => {
         if (weatherData && imgWeather.code === weatherData.weather.code ) {
           return <Image key={imgWeather.code}
-                        width={64}
-                        height={64}
+                        layout="fill"
+                        className={styles.backgroundImages}
                       src={imgWeather ? imgWeather.img : imgServerProblem} alt={"imgServerProblem"}/>
         } else { return null }
       }
@@ -193,8 +183,9 @@ const WeatherBackground : FC = () => {
       <>
         { weatherData
             ? ImgWeatherBackgroundMemo
-            : <Image width={64}
-                     height={64} src={imgServerProblem} alt="imgServerProblem"/>}
+            : <Image layout="fill"
+                     className={styles.backgroundImages}
+                     src={imgServerProblem} alt="imgServerProblem"/>}
       </>
   )
 }
@@ -231,8 +222,9 @@ const ContentTable: FC = () => {
       <>
         { weatherSeniorData &&
             <Col xl={10} md={18} sm={22} xs={24} >
-              <Divider orientation="center">Request History</Divider>
+              <Divider className={styles.divider} orientation="center" >Request History</Divider>
               <Table
+                  className={styles.tableStyle}
                   loading={!weatherSeniorData}
                   rowKey={record => record.key}
                   rowSelection={{
@@ -253,20 +245,20 @@ const ContentWeatherInfo: FC = () => {
 
   const weatherData = useSelector(getWeatherData)
 
-//  const iconWeather = `https://www.weatherbit.io/static/img/icons/${weatherData?.weather.icon}.png`
+  const iconWeather = `https://www.weatherbit.io/static/img/icons/${weatherData?.weather.icon}.png`
   const imgServerProblem = `/assets/images/ServerProblem.jpg`
 
   return (
       <>
-        {weatherData && <Col xl={7} md={12} sm={22} xs={22}>
-          <Image width={'100%'} height={'100%'}
-               src={weatherData.weather.icon ? imgServerProblem : imgServerProblem}
+        {weatherData && <Col xl={7} md={12} sm={22} xs={22} className={styles.containerInfo}>
+          <Image width={'100'} height={'100'}
+               src={weatherData.weather.icon ? iconWeather : imgServerProblem}
                alt={'imgServerProblem'}/>
-          <div>
+          <div className={styles.contentHeader}>
             <p>{weatherData.weather.description}</p>
             <p>{weatherData.temp} °C</p>
           </div>
-          <div>
+          <div className={styles.contentBottom}>
             <p>Last update time: {weatherData.ob_time}</p>
             <p>
               {weatherData.city_name + ' ' + weatherData.country_code + ' ' + weatherData.timezone}
@@ -285,3 +277,8 @@ const ContentWeatherInfo: FC = () => {
 }
 
 export default App
+
+
+//App.getInitialProps = async ({ store }) => {
+ // store.dispatch(await getWeatherBitCityThunk('torun'));
+//}
