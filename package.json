@@ -8,9 +8,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/antd": "^1.0.0",
+    "@types/axios": "^0.14.0",
+    "@types/next-redux-wrapper": "^3.0.0",
+    "@types/react-redux": "^7.1.22",
+    "@types/redux": "^3.6.0",
+    "@types/redux-thunk": "^2.1.0",
+    "@types/reselect": "^2.2.0",
     "next": "12.0.10",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "17.0.17",
